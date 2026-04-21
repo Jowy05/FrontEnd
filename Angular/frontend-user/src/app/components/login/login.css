@@ -1,0 +1,58 @@
+/* Centra todo el contenido en medio de la pantalla */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh; 
+  background-color: #1e1e2e;
+  color: white;
+  font-family: sans-serif;
+}
+
+/* Caja principal del formulario */
+form {
+  background: #2b2b3b;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espacio entre los grupos del formulario */
+  width: 100%;
+  max-width: 350px; /* Evita que el formulario sea gigante en pantallas grandes */
+}
+
+/* Coloca el texto (label) justo encima de su input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* Pequeño espacio entre titulo y caja de texto */
+}
+
+/* Estilos de las cajas de texto */
+input {
+  padding: 0.8rem;
+  border-radius: 4px;
+  border: none;
+  width: 100%; /* Fuerza a que ocupe todo el ancho de su contenedor */
+  box-sizing: border-box; /* Evita que el padding rompa el tamaño total */
+}
+
+/* Estilos del boton de entrar */
+button {
+  padding: 0.8rem;
+  background-color: #5865f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem; /* Lo separa un poco mas de los inputs */
+}
+
+/* Efecto al pasar el raton por encima */
+button:hover {
+  background-color: #4752c4;
+}
