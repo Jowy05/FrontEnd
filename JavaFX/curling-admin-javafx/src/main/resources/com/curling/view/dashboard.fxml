@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.curling.controller.DashboardController" stylesheets="@../../../style.css">
+    
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="header-bar">
+            <padding>
+                <Insets bottom="10" left="20" right="20" top="10"/>
+            </padding>
+            <Label text="🏒 Curling Admin" styleClass="header-title">
+                <font>
+                    <Font name="System Bold" size="18"/>
+                </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblAdminName" text="Admin"/>
+            <Button text="Cerrar Sesión" onAction="#logout" styleClass="button-secondary"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="main-content">
+            <VBox spacing="20">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20"/>
+                </padding>
+                
+                <Label text="Dashboard" styleClass="section-title">
+                    <font>
+                        <Font name="System Bold" size="24"/>
+                    </font>
+                </Label>
+                
+                <!-- Cards de estadísticas -->
+                <HBox spacing="15">
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <Label text="Total Usuarios" styleClass="card-title"/>
+                        <Label fx:id="lblTotalUsers" text="0" styleClass="card-value"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <Label text="Total Reservas" styleClass="card-title"/>
+                        <Label fx:id="lblTotalReservations" text="0" styleClass="card-value"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <Label text="Pendientes" styleClass="card-title"/>
+                        <Label fx:id="lblPendingReservations" text="0" styleClass="card-value" style="-fx-text-fill: orange;"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                        <Label text="Ocupación" styleClass="card-title"/>
+                        <Label fx:id="lblOccupancyRate" text="0%" styleClass="card-value"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- Botones de navegación -->
+                <Label text="Módulos" styleClass="section-subtitle">
+                    <font>
+                        <Font name="System Bold" size="18"/>
+                    </font>
+                </Label>
+                
+                <TilePane hgap="15" vgap="15" prefColumns="3">
+                    <Button text="👥 Gestión de Usuarios" onAction="#openUsers" 
+                            styleClass="module-button" prefWidth="200" prefHeight="80"/>
+                    <Button text="📅 Gestión de Reservas" onAction="#openReservations" 
+                            styleClass="module-button" prefWidth="200" prefHeight="80"/>
+                    <Button text="🏆 Gestión de Resultados" onAction="#openResults" 
+                            styleClass="module-button" prefWidth="200" prefHeight="80"/>
+                    <Button text="🥌 Gestión de Pistas" onAction="#openSheets" 
+                            styleClass="module-button" prefWidth="200" prefHeight="80"/>
+                    <Button text="📊 Estadísticas Globales" onAction="#openStats" 
+                            styleClass="module-button" prefWidth="200" prefHeight="80"/>
+                </TilePane>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

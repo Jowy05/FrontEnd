@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.curling.controller.StatsController" stylesheets="@../../../style.css">
+    
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    
+    <Label text="Estadísticas Globales" styleClass="section-title"/>
+    <Label fx:id="lblTotalUsers" text="Cargando datos..."/>
+    
+    <TabPane VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="📊 Ocupación">
+            <PieChart fx:id="chartOccupancy"/>
+        </Tab>
+        
+        <Tab text="🏆 Top Usuarios">
+            <BarChart fx:id="chartTopUsers" animated="false">
+                <xAxis>
+                    <CategoryAxis label="Usuario"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Partidos"/>
+                </yAxis>
+            </BarChart>
+        </Tab>
+        
+        <Tab text="📈 Evolución">
+            <LineChart fx:id="chartMonthly" animated="false">
+                <xAxis>
+                    <CategoryAxis label="Mes"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Reservas"/>
+                </yAxis>
+            </LineChart>
+        </Tab>
+        
+        <Tab text="🎯 Niveles">
+            <BarChart fx:id="chartLevels" animated="false">
+                <xAxis>
+                    <CategoryAxis label="Nivel"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Usuarios"/>
+                </yAxis>
+            </BarChart>
+        </Tab>
+        
+        <Tab text="🏅 Ranking">
+            <TableView fx:id="tableRanking" VBox.vgrow="ALWAYS"/>
+        </Tab>
+    </TabPane>
+</VBox>
