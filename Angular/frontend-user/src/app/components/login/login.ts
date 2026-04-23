@@ -1,34 +1,45 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Necesario para que funcione el 'ngModel' del HTML
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink], // Si no pones FormsModule aqui, el HTML da error de 'ngModel'
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class LoginComponent {
-  // Definimos el objeto que el HTML esta buscando
   loginData = {
-    username: '',
+    email: '',
     password: ''
   };
 
+  // Variable para guardar el texto del error
+  mensajeError: string = ''; 
+
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Definimos la funcion que se dispara al pulsar el boton de entrar
   onLogin() {
-    // Llamamos al servicio para validar al usuario con ROL USER [cite: 8]
+    // Limpiamos el error antes de un nuevo intento
+    this.mensajeError = ''; 
+
     this.authService.login(this.loginData).subscribe({
       next: (response) => {
-        console.log('Token guardado:', response.token);
-        this.router.navigate(['/dashboard']); // Vamos a las estadisticas personales [cite: 19]
+        console.log('Login exitoso', response);
+        // De momento lo mandamos a perfil para que veas que funciona
+        this.router.navigate(['/perfil']); 
       },
       error: (err) => {
-        alert('Credenciales incorrectas');
+        console.error('Error capturado:', err);
+        // Si el status es 0, significa que Angular ni siquiera pudo llegar al Java
+        if (err.status === 0) {
+          this.mensajeError = 'Fallo de conexión: ¿Está el servidor Java encendido?';
+        } else {
+          // Para errores 401, 403, etc.
+          this.mensajeError = 'Credenciales incorrectas o usuario no encontrado.';
+        }
       }
     });
   }

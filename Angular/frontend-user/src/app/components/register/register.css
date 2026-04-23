@@ -1,0 +1,62 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #1e1e2e;
+  color: white;
+  font-family: sans-serif;
+  padding: 2rem 0;
+}
+
+form {
+  background: #2b2b3b;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+input, select {
+  padding: 0.7rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #fff;
+}
+
+button {
+  padding: 0.8rem;
+  background-color: #43b581; /* Verde distinto al login para diferenciar la accion */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #3ca374;
+}
+
+a { color: #00b0f4; }

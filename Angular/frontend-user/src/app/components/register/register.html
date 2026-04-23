@@ -1,1 +1,50 @@
-<p>register works!</p>
+<div class="register-container">
+  <h2>Registrate</h2>
+  
+  <form (ngSubmit)="onRegister()">
+    <div class="form-group">
+      <label>Nombre de Jugador</label>
+      <input type="text" name="name" [(ngModel)]="registerData.name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Email (Tu usuario)</label>
+      <input type="email" name="email" [(ngModel)]="registerData.email" required>
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" name="password" [(ngModel)]="registerData.password" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Edad</label>
+        <input type="number" name="age" [(ngModel)]="registerData.age" min="10" max="99" required>
+      </div>
+
+      <div class="form-group">
+        <label>Sexo</label>
+        <select name="sex" [(ngModel)]="registerData.sex" required>
+          <option value="" disabled>Selecciona...</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nivel de Juego</label>
+      <select name="level" [(ngModel)]="registerData.level" required>
+        <option value="BASIC">Básico </option>
+        <option value="MEDIUM">Medio </option>
+        <option value="HIGH">Alto </option>
+      </select>
+    </div>
+
+    <button type="submit">Crear Usuario</button>
+  </form>
+
+  <p>¿Ya tienes cuenta? <a routerLink="/login">Vuelve al Login</a></p>
+</div>
