@@ -1,16 +1,10 @@
 <div class="login-container">
-  <h2>Acceso ROL USER</h2>
+  <h2>Acceso Usuario</h2>
   
-  @if(mensajeError) {
-    <div class="alert-error">
-      {{ mensajeError }}
-    </div>
-  }
-
   <form (ngSubmit)="onLogin()">
     <div class="form-group">
-      <label>Email</label>
-      <input type="text" name="email" [(ngModel)]="loginData.email" required>
+      <label>Usuario</label>
+      <input type="email" name="email" [(ngModel)]="loginData.email" required>
     </div>
 
     <div class="form-group">
@@ -20,6 +14,4 @@
 
     <button type="submit">Entrar</button>
   </form>
-
-  <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
 </div>
