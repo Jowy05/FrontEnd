@@ -1,7 +1,7 @@
 <div class="login-container">
   <h2>Acceso Usuario</h2>
-  
-  <form (ngSubmit)="onLogin()">
+
+  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
     <div class="form-group">
       <label>Usuario</label>
       <input type="email" name="email" [(ngModel)]="loginData.email" required>
@@ -14,4 +14,13 @@
 
     <button type="submit">Entrar</button>
   </form>
+
+  @if(mensajeError) {
+    <div class="error-msg">{{ mensajeError }}</div>
+  }
+
+  <div class="register-link">
+    <span>¿No tienes cuenta?</span>
+    <button class="btn-secundario" (click)="irARegistro()">Registrarse</button>
+  </div>
 </div>

@@ -1,1 +1,69 @@
-<p>reservas works!</p>
+<div class="reservas-container">
+  <h2>Reservas</h2>
+
+  <!-- Formulario -->
+  <div class="form-box">
+    <h3>Nueva Reserva</h3>
+
+    @if(formMensaje) {
+      <div class="alert">{{ formMensaje }}</div>
+    }
+
+    <form (ngSubmit)="crearReserva()">
+      <div class="form-group">
+        <label>Fecha y Hora</label>
+        <input type="datetime-local" name="date" [(ngModel)]="reservationData.date" required>
+      </div>
+
+      <div class="form-group">
+        <label>Pista</label>
+        <select name="sheetNumber" [(ngModel)]="reservationData.sheetNumber" required>
+          <option [value]="1">Pista 1</option>
+          <option [value]="2">Pista 2</option>
+          <option [value]="3">Pista 3</option>
+          <option [value]="4">Pista 4</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="formLoading" class="btn-submit">
+        {{ formLoading ? 'Creando...' : 'Crear Reserva' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Lista -->
+  <div class="lista-box">
+    <h3>Mis Reservas</h3>
+
+    @if(listaMensaje) {
+      <div class="alert error">{{ listaMensaje }}</div>
+    }
+
+    @if(listaLoading) {
+      <div class="empty">Cargando...</div>
+    } @else if (misReservas.length === 0) {
+      <div class="empty">Sin reservas.</div>
+    } @else {
+      <div class="grid">
+        @for(res of misReservas; track res.id) {
+          <div class="card">
+            <div class="header">
+              <span class="sheet">Pista {{ res.sheetNumber }}</span>
+              <span class="badge" [class]="getStatusClass(res.status)">{{ res.status }}</span>
+            </div>
+            <div class="body">
+              <p class="fecha">{{ res.date | date:'dd/MM/yyyy HH:mm' }}</p>
+              @if(res.player2) {
+                <p class="rival">VS {{ res.player2.name }}</p>
+              } @else {
+                <p class="esperando">Esperando rival</p>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <button class="btn-back" (click)="volver()">← Volver al Perfil</button>
+</div>
