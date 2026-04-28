@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.curling.controller.UserManagementController" stylesheets="@../../../style.css">
+    
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    
+    <Label text="Gestión de Usuarios" styleClass="section-title"/>
+    
+    <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="colName" text="Nombre" prefWidth="150"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+            <TableColumn fx:id="colAge" text="Edad" prefWidth="60"/>
+            <TableColumn fx:id="colLevel" text="Nivel" prefWidth="80"/>
+            <TableColumn fx:id="colRole" text="Rol" prefWidth="80"/>
+        </columns>
+    </TableView>
+    
+    <GridPane vgap="10" hgap="10">
+        <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        
+        <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <TextField fx:id="txtEmail" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+        
+        <Label text="Edad:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtAge" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        
+        <Label text="Nivel:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <ComboBox fx:id="comboLevel" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        
+        <Label text="Rol:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="comboRole" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    </GridPane>
+    
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="🔄 Refrescar" onAction="#refresh" styleClass="button-secondary"/>
+        <Button text="💾 Guardar Cambios" onAction="#updateUser" styleClass="button-primary"/>
+        <Button text="🗑️ Eliminar" onAction="#deleteUser" styleClass="button-danger"/>
+    </HBox>
+</VBox>

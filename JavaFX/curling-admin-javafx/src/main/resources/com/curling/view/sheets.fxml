@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.curling.controller.SheetManagementController" stylesheets="@../../../style.css">
+    
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    
+    <Label text="Gestión de Pistas" styleClass="section-title"/>
+    <Label text="Estado actual de las pistas de curling" textFill="#666"/>
+    
+    <TableView fx:id="tableSheets" VBox.vgrow="ALWAYS" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="colNumber" text="Nº Pista" prefWidth="80"/>
+            <TableColumn fx:id="colStatus" text="Estado" prefWidth="120"/>
+            <TableColumn fx:id="colCurrent" text="Jugadores Actuales" prefWidth="300"/>
+        </columns>
+    </TableView>
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Nuevo Estado:"/>
+        <ComboBox fx:id="comboStatus" prefWidth="150"/>
+        <Button text="Cambiar Estado" onAction="#changeStatus" styleClass="button-primary"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblInfo" textFill="#666"/>
+        <Button text="🔄 Refrescar" onAction="#refresh" styleClass="button-secondary"/>
+    </HBox>
+    
+    <Label text="Leyenda: 🟢 Disponible | 🔴 Ocupada | 🟠 Mantenimiento" textFill="#999"/>
+</VBox>

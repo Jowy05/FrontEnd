@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" spacing="20" styleClass="login-container" stylesheets="@../../../style.css" 
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.curling.controller.LoginController">
+    
+    <padding>
+        <Insets bottom="40" left="40" right="40" top="40"/>
+    </padding>
+    
+    <Label styleClass="title-label" text="Curling Admin">
+        <font>
+            <Font name="System Bold" size="28"/>
+        </font>
+    </Label>
+    
+    <Label text="Sistema de Administración" textFill="#666"/>
+    
+    <VBox spacing="10" maxWidth="300">
+        <Label text="Email:" styleClass="field-label"/>
+        <TextField fx:id="emailField" promptText="admin@curling.com"/>
+        
+        <Label text="Contraseña:" styleClass="field-label"/>
+        <PasswordField fx:id="passwordField" promptText="••••••••"/>
+    </VBox>
+    
+    <Button text="Iniciar Sesión" onAction="#handleLogin" styleClass="button-primary" 
+            maxWidth="300" prefHeight="40"/>
+    
+    <Label text="Acceso exclusivo para administradores" textFill="#999" font="$null" style="-fx-font-size: 11;"/>
+</VBox>

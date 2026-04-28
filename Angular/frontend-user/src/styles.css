@@ -1,0 +1,10 @@
+/* Reiniciamos los margenes del navegador para que no queden huecos blancos */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  /* Ocultamos el scroll para que la pantalla quede limpia */
+  overflow: hidden; 
+  background-color: #1e1e2e; /* Color base para evitar destellos blancos al cargar */
+}
