@@ -9,11 +9,16 @@ export class ReservationService {
 
   constructor(private http: HttpClient) {}
 
-  createReservation(data: { date: string; sheetNumber: number }): Observable<Reservation> {
+  createReservation(data: { date: string; sheetNumber: number; player1Id: string }): Observable<Reservation> {
     return this.http.post<Reservation>(this.apiUrl, data);
   }
 
   getUserReservations(userId: string): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(`${this.apiUrl}/history/${userId}`);
+  }
+
+  // devuelve las reservas que ya hay en esa fecha para saber qué pistas están libres
+  getDisponibilidad(date: string): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/availability`, { params: { date } });
   }
 }

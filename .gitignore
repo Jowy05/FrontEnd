@@ -1,0 +1,37 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Angular build & cache
+dist/
+.angular/cache
+out-tsc/
+
+# JavaFX / Maven build
+target/
+*.class
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+*.sublime-workspace
+.history/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+.env.local
+
+# Claude Code
+claude.md
+CLAUDE.md
+.claude/

@@ -13,6 +13,7 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  // guarda el token en localStorage al iniciar sesión
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
@@ -36,18 +37,12 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
     }
   }
 
   getUserId(): string | null {
     if (!isPlatformBrowser(this.platformId)) return null;
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.sub || payload.id || null;
-    } catch {
-      return null;
-    }
+    return localStorage.getItem('userId');
   }
 }

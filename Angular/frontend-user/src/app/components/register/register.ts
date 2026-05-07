@@ -12,27 +12,24 @@ import { User } from '../../models/user.model';
   styleUrl: './register.css'
 })
 export class RegisterComponent {
-  // Inicializamos la estructura exacta que pide tu backend
   registerData: User = {
     name: '',
     email: '',
     password: '',
     age: 18,
     sex: '',
-    level: 'BASIC' // Valor por defecto
+    level: 'BASIC'
   };
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onRegister() {
     this.authService.register(this.registerData).subscribe({
-      next: (response) => {
-        console.log('Registro y login automático exitoso');
-        this.router.navigate(['/dashboard']); // Redirige al panel principal
+      next: () => {
+        this.router.navigate(['/perfil']);
       },
-      error: (err) => {
-        console.error('Fallo en el registro', err);
-        alert('Error al registrar. Revisa que el email no exista ya.');
+      error: () => {
+        alert('Error al registrar. Comprueba que el email no esté en uso.');
       }
     });
   }

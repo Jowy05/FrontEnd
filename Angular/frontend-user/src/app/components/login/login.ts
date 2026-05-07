@@ -24,8 +24,8 @@ export class LoginComponent {
     this.authService.login(this.loginData).subscribe({
       next: () => this.router.navigate(['/perfil']),
       error: (err) => {
-        this.mensajeError = err.status === 0 
-          ? 'Fallo de conexión: ¿Está el servidor Java encendido?' 
+        this.mensajeError = err.status === 0
+          ? 'Fallo de conexión: ¿Está el servidor Java encendido?'
           : 'Credenciales incorrectas.';
       }
     });

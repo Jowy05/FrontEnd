@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -15,18 +16,27 @@ export class PerfilComponent implements OnInit {
   userProfile: User = { name: '', email: '', age: 0, sex: '', level: 'BASIC' };
   mensaje = '';
   modoEdicion = false;
+  cargando = true;
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() { this.cargarPerfil(); }
 
   cargarPerfil() {
+    this.cargando = true;
     this.userService.getProfile().subscribe({
-      next: (data) => this.userProfile = data,
-      error: () => this.mensaje = 'Error al cargar perfil'
+      next: (data) => {
+        this.userProfile = data;
+        this.cargando = false;
+      },
+      error: () => {
+        this.mensaje = 'Error al cargar perfil';
+        this.cargando = false;
+      }
     });
   }
 
@@ -49,7 +59,7 @@ export class PerfilComponent implements OnInit {
 
   cancelarEdicion() {
     this.modoEdicion = false;
-    this.cargarPerfil(); // Recarga datos originales por si cambió algo
+    this.cargarPerfil();
     this.mensaje = '';
   }
 
@@ -57,7 +67,7 @@ export class PerfilComponent implements OnInit {
   irAHistorial() { this.router.navigate(['/historial']); }
   
   logout() {
-    localStorage.removeItem('token');
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

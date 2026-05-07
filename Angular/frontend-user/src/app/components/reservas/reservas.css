@@ -116,6 +116,19 @@ input:focus, select:focus { border-color: #5865f2; outline: none; }
 .rival { font-weight: 500; margin: 0.3rem 0 0; }
 .esperando { color: #faa61a; font-style: italic; margin: 0.3rem 0 0; }
 
+.btn-resultado {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: #5865f2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-resultado:hover { background: #4752c4; }
+
 .btn-back {
   padding: 0.6rem 1.2rem;
   background: transparent;

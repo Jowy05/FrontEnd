@@ -1,8 +1,6 @@
 <div class="perfil-container">
-  <!-- Menú superior -->
   <nav class="top-nav">
-    <button class="nav-btn" (click)="irAReservas()">Hacer Reserva</button>
-    <button class="nav-btn" (click)="irAReservas()">Mis Reservas</button>
+    <button class="nav-btn" (click)="irAReservas()">Reservas</button>
     <button class="nav-btn" (click)="irAHistorial()">Historial</button>
     <button class="nav-btn logout" (click)="logout()">Salir</button>
   </nav>
@@ -14,76 +12,73 @@
       <div class="alert">{{ mensaje }}</div>
     }
 
-    <!-- MODO LECTURA -->
-    @if(!modoEdicion) {
-      <div class="datos-vista">
-        <div class="dato">
-          <span class="label">Nombre</span>
-          <span class="valor">{{ userProfile.name }}</span>
-        </div>
-        <div class="dato">
-          <span class="label">Email</span>
-          <span class="valor">{{ userProfile.email }}</span>
-        </div>
-        <div class="dato">
-          <span class="label">Edad</span>
-          <span class="valor">{{ userProfile.age }}</span>
-        </div>
-        <div class="dato">
-          <span class="label">Sexo</span>
-          <span class="valor">{{ userProfile.sex || '—' }}</span>
-        </div>
-        <div class="dato">
-          <span class="label">Nivel</span>
-          <span class="valor">{{ userProfile.level }}</span>
-        </div>
+    @if(cargando) {
+      <div class="loading">Cargando...</div>
+    } @else {
+      @if(!modoEdicion) {
+        <div class="datos-vista">
+          <div class="dato">
+            <span class="label">Nombre</span>
+            <span class="valor">{{ userProfile.name || '—' }}</span>
+          </div>
+          <div class="dato">
+            <span class="label">Email</span>
+            <span class="valor">{{ userProfile.email || '—' }}</span>
+          </div>
+          <div class="dato">
+            <span class="label">Edad</span>
+            <span class="valor">{{ userProfile.age || '—' }}</span>
+          </div>
+          <div class="dato">
+            <span class="label">Sexo</span>
+            <span class="valor">{{ userProfile.sex || '—' }}</span>
+          </div>
+          <div class="dato">
+            <span class="label">Nivel</span>
+            <span class="valor">{{ userProfile.level || '—' }}</span>
+          </div>
 
-        <button class="btn-editar" (click)="activarEdicion()">✏️ Editar Perfil</button>
-      </div>
-    }
-
-    <!-- MODO EDICIÓN -->
-    @if(modoEdicion) {
-      <form (ngSubmit)="guardarCambios()">
-        <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" name="name" [(ngModel)]="userProfile.name" required>
+          <button class="btn-editar" (click)="activarEdicion()">✏️ Editar Perfil</button>
         </div>
+      }
 
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" [(ngModel)]="userProfile.email" disabled>
-        </div>
-
-        <div class="form-group">
-          <label>Edad</label>
-          <input type="number" name="age" [(ngModel)]="userProfile.age" required>
-        </div>
-
-        <div class="form-group">
-          <label>Sexo</label>
-          <select name="sex" [(ngModel)]="userProfile.sex" required>
-            <option value="" disabled>Selecciona...</option>
-            <option value="Hombre">Hombre</option>
-            <option value="Mujer">Mujer</option>
-            <option value="Otro">Otro</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Nivel</label>
-          <select name="level" [(ngModel)]="userProfile.level" required>
-            <option value="BASIC">Básico</option>
-            <option value="MEDIUM">Medio</option>
-            <option value="HIGH">Avanzado</option>
-          </select>
-        </div>
-
-        <div class="botones-form">
-          <button type="submit" class="btn-guardar">Guardar Cambios</button>
-          <button type="button" class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
-        </div>
-      </form>
+      @if(modoEdicion) {
+        <form (ngSubmit)="guardarCambios()">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="name" [(ngModel)]="userProfile.name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" [(ngModel)]="userProfile.email" disabled>
+          </div>
+          <div class="form-group">
+            <label>Edad</label>
+            <input type="number" name="age" [(ngModel)]="userProfile.age" required>
+          </div>
+          <div class="form-group">
+            <label>Sexo</label>
+            <select name="sex" [(ngModel)]="userProfile.sex" required>
+              <option value="" disabled>Selecciona...</option>
+              <option value="Hombre">Hombre</option>
+              <option value="Mujer">Mujer</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nivel</label>
+            <select name="level" [(ngModel)]="userProfile.level" required>
+              <option value="BASIC">Básico</option>
+              <option value="MEDIUM">Medio</option>
+              <option value="HIGH">Avanzado</option>
+            </select>
+          </div>
+          <div class="botones-form">
+            <button type="submit" class="btn-guardar">Guardar</button>
+            <button type="button" class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+          </div>
+        </form>
+      }
     }
   </div>
 </div>

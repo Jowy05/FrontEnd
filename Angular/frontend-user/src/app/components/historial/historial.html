@@ -1,1 +1,68 @@
-<p>historial works!</p>
+<div class="historial-container">
+  <nav class="top-nav">
+    <button class="nav-btn" (click)="irAReservas()">Reservas</button>
+    <button class="nav-btn active">Historial</button>
+    <button class="nav-btn logout" (click)="logout()">Salir</button>
+  </nav>
+
+  <h2>Historial de Partidas</h2>
+
+  @if(stats && stats.played > 0) {
+    <div class="stats-box">
+      <div class="stat">
+        <span class="stat-num">{{ stats.played }}</span>
+        <span class="stat-label">Jugadas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num green">{{ stats.wins }}</span>
+        <span class="stat-label">Ganadas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num red">{{ stats.losses }}</span>
+        <span class="stat-label">Perdidas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{{ stats.winRate * 100 | number:'1.0-0' }}%</span>
+        <span class="stat-label">% Victorias</span>
+      </div>
+    </div>
+  }
+
+  @if(mensaje) {
+    <div class="alert error">{{ mensaje }}</div>
+  }
+
+  @if(cargando) {
+    <div class="empty">Cargando...</div>
+  } @else if (resultados.length === 0) {
+    <div class="empty">No tienes partidas registradas aún.</div>
+  } @else {
+    <div class="grid">
+      @for(res of resultados; track res.id) {
+        <div class="card" [class.ganada]="fueGanador(res)" [class.perdida]="res.winner && !fueGanador(res)">
+          <div class="header">
+            <span class="score">{{ res.score }}</span>
+            @if(!res.winner) {
+              <span class="badge empate">EMPATE</span>
+            } @else if(fueGanador(res)) {
+              <span class="badge victoria">VICTORIA</span>
+            } @else {
+              <span class="badge derrota">DERROTA</span>
+            }
+          </div>
+          <div class="body">
+            @if(res.winner) {
+              <p class="ganador">Ganador: {{ res.winner.name }}</p>
+            }
+            @if(res.comments) {
+              <p class="comentario">{{ res.comments }}</p>
+            }
+            <p class="fecha">{{ res.recordedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <button class="btn-back" (click)="volver()">← Volver al Perfil</button>
+</div>

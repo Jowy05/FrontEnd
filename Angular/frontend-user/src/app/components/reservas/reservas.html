@@ -1,7 +1,6 @@
 <div class="reservas-container">
   <h2>Reservas</h2>
 
-  <!-- Formulario -->
   <div class="form-box">
     <h3>Nueva Reserva</h3>
 
@@ -12,26 +11,24 @@
     <form (ngSubmit)="crearReserva()">
       <div class="form-group">
         <label>Fecha y Hora</label>
-        <input type="datetime-local" name="date" [(ngModel)]="reservationData.date" required>
+        <input type="datetime-local" name="date" [(ngModel)]="reservationData.date" (change)="onFechaChange()" required>
       </div>
-
       <div class="form-group">
         <label>Pista</label>
         <select name="sheetNumber" [(ngModel)]="reservationData.sheetNumber" required>
-          <option [value]="1">Pista 1</option>
-          <option [value]="2">Pista 2</option>
-          <option [value]="3">Pista 3</option>
-          <option [value]="4">Pista 4</option>
+          @for(n of [1,2,3,4]; track n) {
+            <option [value]="n" [disabled]="estaOcupada(n)">
+              Pista {{ n }}{{ estaOcupada(n) ? ' (ocupada)' : '' }}
+            </option>
+          }
         </select>
       </div>
-
       <button type="submit" [disabled]="formLoading" class="btn-submit">
         {{ formLoading ? 'Creando...' : 'Crear Reserva' }}
       </button>
     </form>
   </div>
 
-  <!-- Lista -->
   <div class="lista-box">
     <h3>Mis Reservas</h3>
 
@@ -42,7 +39,7 @@
     @if(listaLoading) {
       <div class="empty">Cargando...</div>
     } @else if (misReservas.length === 0) {
-      <div class="empty">Sin reservas.</div>
+      <div class="empty">No tienes reservas.</div>
     } @else {
       <div class="grid">
         @for(res of misReservas; track res.id) {
@@ -56,7 +53,10 @@
               @if(res.player2) {
                 <p class="rival">VS {{ res.player2.name }}</p>
               } @else {
-                <p class="esperando">Esperando rival</p>
+                <p class="esperando">⏳ Esperando rival</p>
+              }
+              @if(res.status === 'FINALIZADA') {
+                <button class="btn-resultado" (click)="registrarResultado(res)">Registrar resultado</button>
               }
             </div>
           </div>

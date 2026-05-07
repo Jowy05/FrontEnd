@@ -1,1 +1,61 @@
-<p>match-result works!</p>
+<div class="resultado-container">
+  <h2>Registrar Resultado</h2>
+
+  @if(reservation) {
+    <div class="info-box">
+      <div class="dato">
+        <span class="label">Fecha</span>
+        <span class="valor">{{ reservation.date | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="dato">
+        <span class="label">Pista</span>
+        <span class="valor">Pista {{ reservation.sheetNumber }}</span>
+      </div>
+      <div class="dato">
+        <span class="label">Jugador 1</span>
+        <span class="valor">{{ reservation.player1.name }}</span>
+      </div>
+      @if(reservation.player2) {
+        <div class="dato">
+          <span class="label">Jugador 2</span>
+          <span class="valor">{{ reservation.player2.name }}</span>
+        </div>
+      }
+    </div>
+
+    @if(mensaje) {
+      <div class="alert" [class.error]="mensaje.includes('Error')">{{ mensaje }}</div>
+    }
+
+    <div class="form-box">
+      <form (ngSubmit)="submitResult()">
+        <div class="form-group">
+          <label>Marcador (ej: 8-5)</label>
+          <input type="text" name="score" [(ngModel)]="resultData.score" placeholder="8-5" required>
+        </div>
+
+        <div class="form-group">
+          <label>Ganador</label>
+          <select name="winnerId" [(ngModel)]="resultData.winnerId">
+            <option value="">Empate</option>
+            <option [value]="reservation.player1.id">{{ reservation.player1.name }}</option>
+            @if(reservation.player2) {
+              <option [value]="reservation.player2.id">{{ reservation.player2.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Comentarios (opcional)</label>
+          <input type="text" name="comments" [(ngModel)]="resultData.comments" placeholder="Buena partida...">
+        </div>
+
+        <button type="submit" [disabled]="cargando || !resultData.score" class="btn-submit">
+          {{ cargando ? 'Guardando...' : 'Guardar Resultado' }}
+        </button>
+      </form>
+    </div>
+  }
+
+  <button class="btn-back" (click)="volver()">← Volver a Reservas</button>
+</div>
