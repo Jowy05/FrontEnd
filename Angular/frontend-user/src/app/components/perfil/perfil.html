@@ -6,7 +6,7 @@
   </nav>
 
   <div class="perfil-card">
-    <h2>Tu Hoja de Personaje</h2>
+    <h2>Tu perfil</h2>
 
     @if(mensaje) {
       <div class="alert">{{ mensaje }}</div>
@@ -38,7 +38,7 @@
             <span class="valor">{{ userProfile.level || '—' }}</span>
           </div>
 
-          <button class="btn-editar" (click)="activarEdicion()">✏️ Editar Perfil</button>
+          <button class="btn-editar" (click)="activarEdicion()">Editar Perfil</button>
         </div>
       }
 

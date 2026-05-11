@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ResultService } from '../../services/result.service';
@@ -10,7 +10,8 @@ import { MatchResult, Stats } from '../../models/result.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './historial.html',
-  styleUrl: './historial.css'
+  styleUrl: './historial.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistorialComponent implements OnInit {
   resultados: MatchResult[] = [];
@@ -21,7 +22,8 @@ export class HistorialComponent implements OnInit {
   constructor(
     private resultService: ResultService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() { this.cargar(); }
@@ -35,12 +37,12 @@ export class HistorialComponent implements OnInit {
     }
 
     this.resultService.getUserResults(userId).subscribe({
-      next: (data) => { this.resultados = data; this.cargando = false; },
-      error: () => { this.mensaje = 'Error al cargar historial.'; this.cargando = false; }
+      next: (data) => { this.resultados = data; this.cargando = false; this.cdr.markForCheck(); },
+      error: () => { this.mensaje = 'Error al cargar historial.'; this.cargando = false; this.cdr.markForCheck(); }
     });
 
     this.resultService.getUserStats(userId).subscribe({
-      next: (data) => this.stats = data,
+      next: (data) => { this.stats = data; this.cdr.markForCheck(); },
       error: () => {}
     });
   }

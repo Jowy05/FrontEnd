@@ -1,1 +1,7 @@
 <router-outlet></router-outlet>
+
+@if(notif) {
+  <div class="toast" [class.toast-warn]="notif.tipo === 'warn'" [class.toast-ok]="notif.tipo === 'ok'">
+    {{ notif.mensaje }}
+  </div>
+}

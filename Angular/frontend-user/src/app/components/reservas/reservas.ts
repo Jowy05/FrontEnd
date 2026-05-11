@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,7 +11,8 @@ import { Reservation } from '../../models/reservation.model';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './reservas.html',
-  styleUrl: './reservas.css'
+  styleUrl: './reservas.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReservasComponent implements OnInit {
   reservationData = { date: '', sheetNumber: 1 };
@@ -25,7 +26,8 @@ export class ReservasComponent implements OnInit {
   constructor(
     private reservationService: ReservationService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() { this.cargarReservas(); }
@@ -40,6 +42,7 @@ export class ReservasComponent implements OnInit {
         if (this.pistasOcupadas.includes(this.reservationData.sheetNumber)) {
           this.reservationData.sheetNumber = [1, 2, 3, 4].find(n => !this.pistasOcupadas.includes(n)) || 1;
         }
+        this.cdr.markForCheck();
       },
       error: () => {}
     });
@@ -67,6 +70,7 @@ export class ReservasComponent implements OnInit {
         this.cargarReservas();
         this.reservationData = { date: '', sheetNumber: 1 };
         this.pistasOcupadas = [];
+        this.cdr.markForCheck();
       },
       error: (err) => {
         this.formLoading = false;
@@ -75,6 +79,7 @@ export class ReservasComponent implements OnInit {
         } else {
           this.formMensaje = 'Error al crear la reserva.';
         }
+        this.cdr.markForCheck();
       }
     });
   }
@@ -94,6 +99,7 @@ export class ReservasComponent implements OnInit {
       next: (data: Reservation[]) => {
         this.misReservas = data;
         this.listaLoading = false;
+        this.cdr.markForCheck();
       },
       error: (err) => {
         this.listaLoading = false;
@@ -102,6 +108,7 @@ export class ReservasComponent implements OnInit {
         } else {
           this.listaMensaje = 'Error al cargar reservas.';
         }
+        this.cdr.markForCheck();
       }
     });
   }
@@ -120,7 +127,7 @@ export class ReservasComponent implements OnInit {
     this.router.navigate(['/resultado', res.id], { state: { reservation: res } });
   }
 
-  volver() {
-    this.router.navigate(['/perfil']);
-  }
+  volver() { this.router.navigate(['/perfil']); }
+  irAHistorial() { this.router.navigate(['/historial']); }
+  logout() { this.authService.logout(); this.router.navigate(['/login']); }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -10,7 +10,8 @@ import { User } from '../../models/user.model';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './perfil.html',
-  styleUrl: './perfil.css'
+  styleUrl: './perfil.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PerfilComponent implements OnInit {
   userProfile: User = { name: '', email: '', age: 0, sex: '', level: 'BASIC' };
@@ -21,7 +22,8 @@ export class PerfilComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() { this.cargarPerfil(); }
@@ -32,10 +34,12 @@ export class PerfilComponent implements OnInit {
       next: (data) => {
         this.userProfile = data;
         this.cargando = false;
+        this.cdr.markForCheck();
       },
       error: () => {
         this.mensaje = 'Error al cargar perfil';
         this.cargando = false;
+        this.cdr.markForCheck();
       }
     });
   }
